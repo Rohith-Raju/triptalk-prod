@@ -30,7 +30,7 @@
   cursor: pointer;
 }
 
-h1 {
+.header h1 {
   font-size: 3.5vw;
   font-family: 'Reem Kufi';
 }

@@ -1,0 +1,89 @@
+.nav {
+  position: absolute;
+  margin: 3rem 2rem 0rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 94%;
+  z-index: 1;
+}
+.nav img {
+  height: 8rem;
+}
+.nav ul li {
+  text-decoration: none;
+  list-style-type: none;
+  margin-right: auto;
+  font-family: 'Reem Kufi';
+  color: #dc6379;
+}
+.signin {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  background-color: aliceblue;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar header {
+  text-align: center;
+  font-size: 2.5rem;
+  font-family: 'Reem kufi';
+}
+
+.image {
+  min-width: 80%;
+}
+
+.inputdiv {
+  flex-basis: 50rem;
+  font-family: 'Reem Kufi';
+  font-size: 1.5rem;
+}
+
+form {
+  width: 40%;
+}
+.inputdiv input[type='email'],
+.inputdiv input[type='password'] {
+  width: 100%;
+  margin: 0rem 0rem 2rem 0rem;
+  background-color: #ebe8e8;
+  border: 0;
+  padding: 0.7rem 0rem 0.7rem 1rem;
+  border-radius: 0.3rem;
+  font-size: 1rem;
+}
+
+.inputdiv input[type='submit'] {
+  padding: 0.5rem 5rem;
+  font-size: 1.2rem;
+  font-family: 'Reem Kufi';
+  font-weight: 700;
+  border: none;
+  border-radius: 0.3rem;
+  background-color: #f8dad5;
+}
+
+.inputdiv input[type='submit'] :focus {
+  outline: none;
+}
+
+.borderline {
+  overflow: visible;
+  padding: 0;
+  margin: 2rem 0rem;
+  border-top: 1px solid #e0e0e0;
+  color: #6e6d7a;
+  text-align: center;
+}

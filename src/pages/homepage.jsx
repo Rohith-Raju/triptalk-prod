@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useReducer } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Pink from '../components/pinkcontainer';
 import { gsap, Power4 } from 'gsap';
 
