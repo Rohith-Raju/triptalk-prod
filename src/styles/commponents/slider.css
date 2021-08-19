@@ -1,0 +1,35 @@
+.body {
+  font-family: 'Reem Kufi';
+}
+
+.load-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.load-screen1 {
+  position: relative;
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 100%;
+  height: 0%;
+}
+.page {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  opacity: 0;
+}
+.page h1 {
+  font-family: 'Reem Kufi';
+}

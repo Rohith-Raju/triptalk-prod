@@ -1,7 +1,9 @@
 import React from 'react';
 import styles from '../styles/commponents/navbar.module.css';
+import { useHistory } from 'react-router-dom';
 
 const navbar = () => {
+  const history = useHistory();
   return (
     <React.Fragment>
       <nav className={styles.navbar}>
@@ -20,8 +22,11 @@ const navbar = () => {
           Create
         </a>
         <a></a>
-        <button className={styles.login}>
-          <span>Login/Signin</span>
+        <button
+          onClick={() => history.push('/signin')}
+          className={styles.login}
+        >
+          <span>Login/Signup</span>
         </button>
       </nav>
     </React.Fragment>

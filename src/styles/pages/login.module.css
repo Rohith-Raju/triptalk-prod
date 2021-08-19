@@ -1,14 +1,15 @@
 .nav {
   position: absolute;
-  margin: 3rem 2rem 0rem 3rem;
+  margin: 3rem 0rem 0rem 5rem;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  width: 94%;
+  width: 90%;
   z-index: 1;
 }
 .nav img {
   height: 8rem;
+  cursor: pointer;
 }
 .nav ul li {
   text-decoration: none;
@@ -16,6 +17,7 @@
   margin-right: auto;
   font-family: 'Reem Kufi';
   color: #dc6379;
+  cursor: pointer;
 }
 .signin {
   position: absolute;
@@ -46,7 +48,7 @@
 }
 
 .inputdiv {
-  flex-basis: 50rem;
+  flex-basis: 50vw;
   font-family: 'Reem Kufi';
   font-size: 1.5rem;
 }
@@ -73,6 +75,7 @@ form {
   border: none;
   border-radius: 0.3rem;
   background-color: #f8dad5;
+  cursor: pointer;
 }
 
 .inputdiv input[type='submit'] :focus {
@@ -86,4 +89,43 @@ form {
   border-top: 1px solid #e0e0e0;
   color: #6e6d7a;
   text-align: center;
+}
+
+.display {
+  opacity: 0;
+}
+
+@media screen and (max-width: 1520px) {
+  .inputdiv h2 {
+    font-size: 2rem;
+  }
+  .sidebar header {
+    font-size: 2.1rem;
+  }
+}
+
+@media screen and (max-width: 1350px) {
+  .inputdiv h2 {
+    font-size: 1.9rem;
+  }
+  .inputdiv form {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .sidebar {
+    display: none;
+  }
+  .inputdiv {
+    position: absolute;
+    display: flex;
+    flex-basis: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .nav {
+    margin: 3rem 0rem 0rem 2rem;
+  }
 }
