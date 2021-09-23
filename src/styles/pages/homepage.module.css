@@ -30,8 +30,8 @@
   cursor: pointer;
 }
 
-.header h1 {
-  font-size: 3.5vw;
+.header {
+  font-size: 2.5rem;
   font-family: 'Reem Kufi';
 }
 .car {
@@ -51,29 +51,32 @@
   .header {
     grid-row: 1/2;
     grid-column: 1/3;
-    font-size: 3%;
+    font-size: 2.5rem;
+    padding: 10rem 0rem 0rem 0rem;
   }
 
   .car {
     grid-column: 1/3;
-    width: 500px;
+    width: 29rem;
     margin: 0;
   }
 }
 
 @media screen and (max-width: 800px) {
   .hero {
-    padding: 10rem 0rem 0rem 0rem;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   .heading {
-    font-size: 3rem;
-    margin-left: 4rem;
+    padding: 4rem 0rem 0rem 0rem;
+    font-size: 2.8rem;
   }
   .cta {
-    margin-left: 4rem;
+    font-size: 2rem;
+  }
+  .cta img {
+    width: 2rem;
   }
 }
 @media screen and (max-width: 600px) {
@@ -83,9 +86,10 @@
   }
   .cta {
     margin-left: 3rem;
+    font-size: 1.9rem;
   }
   .cta img {
-    width: 1.4rem;
+    width: 1.8rem;
   }
   .car {
     padding-top: 3rem;

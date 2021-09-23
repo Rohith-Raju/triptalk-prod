@@ -1,15 +1,29 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../styles/pages/login.module.css';
 import GoogleButton from 'react-google-button';
 import { useHistory } from 'react-router-dom';
 import Slider from '../components/silder';
-
 import gsap from 'gsap';
+
+//module import
+
+import { useAuth } from '../contexts/Authcontext';
 
 const login = () => {
   const history = useHistory();
+  const [error, seterror] = useState();
   var display = useRef();
+
+  const { Googlesignup } = useAuth();
+
+  const google_popup = async () => {
+    try {
+      await Googlesignup;
+    } catch {
+      seterror();
+    }
+  };
 
   useEffect(() => {
     gsap.to(display, {
@@ -49,7 +63,7 @@ const login = () => {
           <div className={styles.inputdiv}>
             <form>
               <h2>Sign in to Trip-Talk</h2>
-              <GoogleButton />
+              <GoogleButton onClick={Googlesignup} />
               <hr className={styles.borderline} />
               <label htmlFor="Email">Email</label>
               <input type="email" />
