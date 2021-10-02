@@ -1,22 +1,33 @@
+// modules import
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styles from '../styles/pages/login.module.css';
 import GoogleButton from 'react-google-button';
 import { useHistory } from 'react-router-dom';
-import Slider from '../components/silder';
 import gsap from 'gsap';
 
-// custom  hooks import
+// styles
+import styles from '../styles/pages/login.module.css';
 
+// components and contexts import
+import Slider from '../components/silder';
 import { useAuth } from '../contexts/Authcontext';
 
-const login = () => {
-  let emailref = useRef('');
-  let passwordRef = useRef('');
+const Signup = () => {
   const history = useHistory();
   const [error, seterror] = useState();
-  const { Googlesignup, currentuser, emailPasswordSignIn } = useAuth();
+  const [btnloading, setbuttonloading] = useState(false);
+
+  // refs
+
   var display = useRef();
+  var emailRef = useRef();
+  var passwordRef = useRef();
+
+  //contexts
+
+  const { Googlesignup, emailPasswordSignUp } = useAuth();
+
+  // google popup
 
   const google_popup = async () => {
     Googlesignup()
@@ -24,13 +35,21 @@ const login = () => {
       .catch((err) => seterror(err.message));
   };
 
-  const formSubmit = (e) => {
+  //creating users / signup
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    emailPassword(emailref.value, passwordRef.value)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    setbuttonloading(true);
+    emailPasswordSignUp(emailRef.value, passwordRef.value)
+      .then((res) => {
+        setbuttonloading(false);
+        console.log(res);
+      })
+      .catch((err) => {
+        setbuttonloading(false);
+        console.log(err);
+      });
   };
-  //const email_signup = async () => {};
 
   useEffect(() => {
     gsap.to(display, {
@@ -44,7 +63,7 @@ const login = () => {
 
   return (
     <React.Fragment>
-      <Slider page={'Sign in'} backgroundColor={'#e4cb58'} />
+      <Slider page={'Sign Up'} backgroundColor={'#50b7d6'} />
       <div ref={(e) => (display = e)} className={styles.display}>
         <nav className={styles.nav}>
           <img
@@ -54,7 +73,7 @@ const login = () => {
           />
           <ul>
             <li>
-              Not a member? <Link to="/signup">Sign up</Link>
+              Are you a member? <Link to="/signin">Sign In</Link>
             </li>
           </ul>
         </nav>
@@ -68,16 +87,15 @@ const login = () => {
             </div>
           </div>
           <div className={styles.inputdiv}>
-            <h4>{error ? error : ''}</h4>
-            <form onSubmit={formSubmit}>
-              <h2>Sign in to Trip-Talk</h2>
+            <form onSubmit={handleSubmit}>
+              <h2>Sign Up to Trip-Talk</h2>
               <GoogleButton onClick={google_popup} />
               <hr className={styles.borderline} />
               <label htmlFor="Email">Email</label>
-              <input ref={(e) => (emailref = e)} type="email" />
+              <input ref={(e) => (emailRef = e)} type="email" />
               <label htmlFor="Password">Password</label>
               <input ref={(e) => (passwordRef = e)} type="password" />
-              <input type="submit" value="Sign in" />
+              <input disabled={btnloading} type="submit" value="Sign in" />
             </form>
           </div>
         </section>
@@ -86,4 +104,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Signup;
