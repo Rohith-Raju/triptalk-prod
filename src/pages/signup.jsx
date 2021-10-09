@@ -10,12 +10,19 @@ import styles from '../styles/pages/login.module.css';
 
 // components and contexts import
 import Slider from '../components/silder';
+import FormError from '../components/FormError';
+
+//custom hooks import
 import { useAuth } from '../contexts/Authcontext';
 
 const Signup = () => {
   const history = useHistory();
-  const [error, seterror] = useState();
-  const [btnloading, setbuttonloading] = useState(false);
+  const [error, seterror] = useState({
+    popup: false,
+    emailPassword: false,
+    message: '',
+  });
+  const [btnloading, setbuttonloading] = useState();
 
   // refs
 
@@ -31,8 +38,13 @@ const Signup = () => {
 
   const google_popup = async () => {
     Googlesignup()
-      .then((res) => console.log(res))
-      .catch((err) => seterror(err.message));
+      .then((res) => {
+        history.push('/explore');
+      })
+      .catch((err) => {
+        const errorMessage = err.code.split('/')[1];
+        seterror({ popup: true, message: errorMessage });
+      });
   };
 
   //creating users / signup
@@ -42,12 +54,16 @@ const Signup = () => {
     setbuttonloading(true);
     emailPasswordSignUp(emailRef.value, passwordRef.value)
       .then((res) => {
+        history.push('/explore');
         setbuttonloading(false);
-        console.log(res);
       })
       .catch((err) => {
         setbuttonloading(false);
-        console.log(err);
+        const errorMessage = err.code.split('/')[1];
+        seterror({
+          emailPassword: true,
+          message: errorMessage,
+        });
       });
   };
 
@@ -91,11 +107,16 @@ const Signup = () => {
               <h2>Sign Up to Trip-Talk</h2>
               <GoogleButton onClick={google_popup} />
               <hr className={styles.borderline} />
+              {error.popup ? (
+                <FormError message={error.message} />
+              ) : error.emailPassword ? (
+                <FormError message={error.message} />
+              ) : null}
               <label htmlFor="Email">Email</label>
               <input ref={(e) => (emailRef = e)} type="email" />
               <label htmlFor="Password">Password</label>
               <input ref={(e) => (passwordRef = e)} type="password" />
-              <input disabled={btnloading} type="submit" value="Sign in" />
+              <input disabled={btnloading} type="submit" value="Sign Up" />
             </form>
           </div>
         </section>

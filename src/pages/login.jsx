@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import styles from '../styles/pages/login.module.css';
 import GoogleButton from 'react-google-button';
 import { useHistory } from 'react-router-dom';
-import Slider from '../components/silder';
 import gsap from 'gsap';
+
+// components import
+
+import Slider from '../components/silder';
+import FormError from '../components/FormError';
 
 // custom  hooks import
 
@@ -14,23 +18,46 @@ const login = () => {
   let emailref = useRef('');
   let passwordRef = useRef('');
   const history = useHistory();
-  const [error, seterror] = useState();
-  const { Googlesignup, currentuser, emailPasswordSignIn } = useAuth();
+  const [error, seterror] = useState({
+    popup: false,
+    emailPassword: false,
+    message: '',
+  });
+  const { Googlesignup, emailPasswordSignIn } = useAuth();
+  const [loading, setloading] = useState(false);
   var display = useRef();
 
   const google_popup = async () => {
     Googlesignup()
-      .then((res) => console.log(res))
-      .catch((err) => seterror(err.message));
+      .then((res) => {
+        history.push('/explore');
+      })
+      .catch((err) => {
+        const errMessage = err.code.split('/')[1];
+        seterror({
+          popup: true,
+          message: errMessage,
+        });
+      });
   };
 
   const formSubmit = (e) => {
     e.preventDefault();
-    emailPassword(emailref.value, passwordRef.value)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    setloading(true);
+    emailPasswordSignIn(emailref.value, passwordRef.value)
+      .then((res) => {
+        setloading(false);
+        if (res) history.push('/explore');
+      })
+      .catch((err) => {
+        setloading(false);
+        const errMessage = err.code.split('/')[1];
+        seterror({
+          popup: true,
+          message: errMessage,
+        });
+      });
   };
-  //const email_signup = async () => {};
 
   useEffect(() => {
     gsap.to(display, {
@@ -68,16 +95,20 @@ const login = () => {
             </div>
           </div>
           <div className={styles.inputdiv}>
-            <h4>{error ? error : ''}</h4>
             <form onSubmit={formSubmit}>
               <h2>Sign in to Trip-Talk</h2>
               <GoogleButton onClick={google_popup} />
               <hr className={styles.borderline} />
+              {error.popup ? (
+                <FormError message={error.message} />
+              ) : error.emailPassword ? (
+                <FormError message={error.message} />
+              ) : null}
               <label htmlFor="Email">Email</label>
               <input ref={(e) => (emailref = e)} type="email" />
               <label htmlFor="Password">Password</label>
               <input ref={(e) => (passwordRef = e)} type="password" />
-              <input type="submit" value="Sign in" />
+              <input disabled={loading} type="submit" value="Sign in" />
             </form>
           </div>
         </section>

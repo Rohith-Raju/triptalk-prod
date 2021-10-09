@@ -94,7 +94,6 @@ form {
 .display {
   opacity: 0;
 }
-
 @media screen and (max-width: 1520px) {
   .inputdiv h2 {
     font-size: 2rem;

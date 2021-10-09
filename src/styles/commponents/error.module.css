@@ -1,0 +1,8 @@
+.error {
+  background-color: rgba(248, 4, 78, 0.2);
+}
+.error > p {
+  text-align: center;
+  padding: 0.7rem 1rem 0.7rem 1rem;
+  font-size: 1.2rem;
+}
