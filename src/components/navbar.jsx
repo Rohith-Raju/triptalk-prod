@@ -10,9 +10,9 @@ const navbar = () => {
         <img
           className={styles.logo}
           src={process.env.PUBLIC_URL + '/icons/tt logo.png'}
-          alt=""
+          alt="triptalk logo"
         />
-        <a className={styles.links} href="/">
+        <a className={styles.links} href="/explore">
           Explore
         </a>
         <a className={styles.links} href="/stories">
@@ -21,7 +21,6 @@ const navbar = () => {
         <a className={styles.links} href="/create">
           Create
         </a>
-        <a></a>
         <button
           onClick={() => history.push('/signin')}
           className={styles.login}

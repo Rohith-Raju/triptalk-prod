@@ -1,7 +1,12 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
 
 const Explore = () => {
-  return <h1>hello from explore</h1>;
+  return (
+    <React.Fragment>
+      <Navbar />
+    </React.Fragment>
+  );
 };
 
 export default Explore;

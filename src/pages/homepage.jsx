@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import Pink from '../components/pinkcontainer';
 import { gsap, Power4 } from 'gsap';
 
-import Navbar from '../components/navbar';
+import Navbar from '../components/Navbar';
 import styles from '../styles/pages/homepage.module.css';
 
 const Home = () => {

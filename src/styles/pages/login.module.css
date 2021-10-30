@@ -95,6 +95,9 @@ form {
   opacity: 0;
 }
 @media screen and (max-width: 1520px) {
+  .nav img {
+    height: 5em;
+  }
   .inputdiv h2 {
     font-size: 2rem;
   }
@@ -104,6 +107,9 @@ form {
 }
 
 @media screen and (max-width: 1350px) {
+  .nav img {
+    height: 5em;
+  }
   .inputdiv h2 {
     font-size: 1.9rem;
   }
@@ -112,6 +118,9 @@ form {
   }
 }
 @media screen and (max-width: 1000px) {
+  .nav img {
+    height: 5em;
+  }
   .sidebar {
     display: none;
   }
