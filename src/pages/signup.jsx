@@ -9,7 +9,7 @@ import gsap from 'gsap';
 import styles from '../styles/pages/login.module.css';
 
 // components and contexts import
-import Slider from '../components/silder';
+import Slider from '../components/Silder';
 import FormError from '../components/FormError';
 
 //custom hooks import

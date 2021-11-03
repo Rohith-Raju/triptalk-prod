@@ -1,10 +1,10 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
+import Usernav from '../components/UserNavbar';
 
 const Explore = () => {
   return (
     <React.Fragment>
-      <Navbar />
+      <Usernav />
     </React.Fragment>
   );
 };

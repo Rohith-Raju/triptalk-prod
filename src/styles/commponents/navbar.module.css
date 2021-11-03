@@ -98,6 +98,75 @@
   cursor: pointer;
 }
 
+.avtContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.popover {
+  padding-top: 1.5rem;
+  font-family: 'Reem Kufi';
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  margin-top: 4rem;
+  height: 30rem;
+  width: 13rem;
+  box-shadow: rgb(0 0 0 / 10%) 0 4px 8px 0;
+  border-radius: 0.7rem;
+  background-color: #fafafa;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.inneravatar {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+}
+
+.profileBtn {
+  display: flex;
+  background-color: #f8dad5;
+  width: 10rem;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 0.2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.profileBtn > a {
+  text-decoration: none;
+  color: #000;
+}
+
+.userLinks {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  padding-top: 2rem;
+  justify-content: space-evenly;
+}
+
+.userLinks > div > a {
+  text-decoration: none;
+  color: #000;
+}
+
+.userLinks > div {
+  width: 100%;
+}
+
 @media only screen and (max-width: 1350px) {
   .logo {
     height: 6rem;

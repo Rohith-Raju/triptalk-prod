@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap, Power3 } from 'gsap';
 import '../styles/commponents/slider.css';
 
-const slider = (props) => {
+const Slider = (props) => {
   let loadref = new useRef();
   let pageref = new useRef();
 
@@ -63,4 +63,4 @@ const slider = (props) => {
   );
 };
 
-export default slider;
+export default Slider;

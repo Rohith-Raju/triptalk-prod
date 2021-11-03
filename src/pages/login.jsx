@@ -7,7 +7,7 @@ import gsap from 'gsap';
 
 // components import
 
-import Slider from '../components/silder';
+import Slider from '../components/Silder';
 import FormError from '../components/FormError';
 
 // custom  hooks import
