@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 
 const auth = getAuth(app);
@@ -34,9 +35,13 @@ export const Authprovider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
+  const Signout = () => {
+    return signOut(auth);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) setcurrentuser(user);
+      setcurrentuser(user);
       setloading(false);
     });
     return unsubscribe;
@@ -47,6 +52,7 @@ export const Authprovider = ({ children }) => {
     Googlesignup,
     emailPasswordSignIn,
     emailPasswordSignUp,
+    Signout,
   };
   return (
     <Authcontext.Provider value={value}>

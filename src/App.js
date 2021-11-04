@@ -4,9 +4,10 @@ import Login from './pages/login';
 import Signup from './pages/signup';
 import Explore from './pages/explore';
 
-//modules and contexts imports
+//modules ,  private route  and contexts imports
 import { Authprovider } from './contexts/Authcontext';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
             <Route path="/" exact component={Homepage} />
             <Route path="/signin" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
-            <Route path="/explore" exact component={Explore} />
+            <PrivateRoute path="/explore" exact component={Explore} />
           </Switch>
         </Router>
       </Authprovider>
