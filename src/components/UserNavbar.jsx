@@ -14,12 +14,10 @@ const Usernav = () => {
 
   let user = currentuser.displayName;
 
-  if (user !== null) user = currentuser.displayName.toUpperCase();
-  else user = 'User1';
+  if (user !== null) user = currentuser.displayName.toUpperCase().split(' ')[0];
+  else user = currentuser.email.toUpperCase().slice(0, 6) + '...';
 
-  if (user.length > 12) user = user.substring(0) + ' ...';
-
-  const avatar = `https://avatars.dicebear.com/api/micah/${user}.svg?mood[]=happy&background=%230000ff`;
+  const avatar = `https://avatars.dicebear.com/api/micah/${user}.svg?happy&background=%230000ff`;
 
   const handleSignOut = () => {
     Signout();
@@ -71,8 +69,8 @@ const Usernav = () => {
             alt="profile"
           />
           <div ref={(e) => (popref = e)} className={styles.popover}>
-            <img className={styles.inneravatar} src={avatar} alt="" />
-            <h3>{user}</h3>
+            <img className={styles.inneravatar} src={avatar} />
+            <h4>{user}</h4>
             <div className={styles.profileBtn}>
               <a href="/edit">Edit profile</a>
             </div>

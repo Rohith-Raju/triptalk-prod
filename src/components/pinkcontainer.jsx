@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap, Power4 } from 'gsap';
 import styles from '../styles/commponents/pink.module.css';
 
-const Pink = (color) => {
+const Pink = () => {
   let pink = useRef();
 
   useEffect(() => {
