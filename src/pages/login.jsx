@@ -97,7 +97,12 @@ const login = () => {
           <div className={styles.inputdiv}>
             <form onSubmit={formSubmit}>
               <h2>Sign in to Trip-Talk</h2>
-              <GoogleButton onClick={google_popup} />
+              <GoogleButton
+                style={{
+                  width: '100%',
+                }}
+                onClick={google_popup}
+              />
               <hr className={styles.borderline} />
               {error.popup ? (
                 <FormError message={error.message} />

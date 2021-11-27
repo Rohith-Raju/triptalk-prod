@@ -137,3 +137,36 @@ form {
     margin: 3rem 0rem 0rem 2rem;
   }
 }
+
+@media screen and (max-width: 400px) {
+  .nav img {
+    height: 3rem;
+  }
+  .inputdiv h2 {
+    font-size: 1.3rem;
+  }
+  .nav {
+    margin: 3rem 0rem 0rem 1rem;
+  }
+  .inputdiv form label {
+    font-size: 1rem;
+  }
+  .inputdiv form input {
+    font-size: 1.3rem;
+  }
+
+  .inputdiv form {
+    margin-top: 5rem;
+  }
+
+  .inputdiv .borderline {
+    margin: 1rem 0rem 1rem 0rem;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .inputdiv input[type='submit'] {
+    width: 100%;
+    padding: 0.5rem 3rem;
+  }
+}

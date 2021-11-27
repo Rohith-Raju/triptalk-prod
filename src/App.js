@@ -3,6 +3,7 @@ import Homepage from './pages/homepage';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import Explore from './pages/explore';
+import Create from './pages/create';
 
 //modules ,  private route  and contexts imports
 import { Authprovider } from './contexts/Authcontext';
@@ -19,6 +20,7 @@ function App() {
             <Route path="/signin" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
             <PrivateRoute path="/explore" exact component={Explore} />
+            <PrivateRoute path="/create" exact component={Create} />
           </Switch>
         </Router>
       </Authprovider>
