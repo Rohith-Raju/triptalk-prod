@@ -7,14 +7,36 @@ import 'react-quill/dist/quill.snow.css';
 //components
 import Usernav from '../components/UserNavbar';
 
+//database firestore
+import {} from "firebase"
+import { collection, addDoc } from 'firebase/firestore';
+
 //styles
 import styles from '../styles/pages/create.module.css';
 
 const Create = () => {
-  const [value, setValue] = useState('');
+  //states
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState(' ');
+  const [date, setDate] = useState('');
+  const [location, setLocation] = useState('');
+  const [body, setBody] = useState('');
+
+  const data = {
+    title: title,
+    description: description,
+    data: date,
+    location: location,
+    body: body,
+  };
+
+  const sendData = async () => {
+    const Collection = collection(Firestore, 'blog');
+    addDoc(Collection, data);
+  };
 
   const { ref } = usePlacesWidget({
-    apiKey: 'AIzaSyC2SCOJRcGE3-xVeIMDLoaaL3Yy5xo-U6k',
+    apiKey: process.env.REACT_APP_GOOGLE,
     onPlaceSelected: (place) => console.log(place),
   });
 
@@ -27,6 +49,7 @@ const Create = () => {
       <div className={styles.firstInput}>
         <div className={styles.group}>
           <input
+            onInput={(e) => setTitle(e.target.value)}
             className={styles.input}
             id="name"
             type="text"
@@ -40,6 +63,7 @@ const Create = () => {
         </div>
         <div className={styles.group}>
           <input
+            onInput={(e) => setDescription(e.target.value)}
             className={styles.input}
             id="Description"
             type="text"
@@ -55,6 +79,7 @@ const Create = () => {
       <div className={styles.secondInput}>
         <div className={styles.group}>
           <input
+            onInput={(e) => setDate(e.target.value)}
             className={styles.input}
             id="name"
             type="date"
@@ -68,6 +93,7 @@ const Create = () => {
         </div>
         <div className={styles.group}>
           <input
+            onInput={(e) => setLocation(e.target.value)}
             ref={ref}
             className={styles.input}
             id="Location"
@@ -85,13 +111,16 @@ const Create = () => {
       <div className={styles.editor}>
         <ReactQuill
           style={{
-            fontSize: '2rem',
+            height: '100%',
           }}
           theme="snow"
-          value={value}
-          onChange={setValue}
+          value={body}
+          onChange={setBody}
         />
       </div>
+      <button onClick={(e) => sendData()} type="submit">
+        submit
+      </button>
     </React.Fragment>
   );
 };
