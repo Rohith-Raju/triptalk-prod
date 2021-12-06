@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&display=swap');
+
 body {
+  font-family: 'Reem Kufi';
   margin: 0;
   box-sizing: border-box;
   padding: 0;
