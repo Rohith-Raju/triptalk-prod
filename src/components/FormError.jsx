@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../styles/commponents/error.module.css';
 import { FirebaseError } from '../FirebaseError';
 
-const FormError = (props) => {
+export const FormError = (props) => {
   const message = FirebaseError(props.message);
   return (
     <div className={styles.error}>
@@ -10,4 +10,3 @@ const FormError = (props) => {
     </div>
   );
 };
-export default FormError;

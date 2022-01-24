@@ -1,184 +1,115 @@
-.createHeader {
+.container {
   position: absolute;
-  width: 100%;
-  top: 10rem;
-
-  font-size: 2rem;
-  text-align: center;
-}
-
-.group {
-  width: 100%;
-  height: 110px;
-  overflow: hidden;
-  position: relative;
-}
-
-.label {
-  position: absolute;
-  top: 36.6666666667px;
-  color: rgba(49, 49, 49, 0.5);
-  font: 400 36.6px 'Reem Kufi';
-  cursor: text;
-  transition: 0.25s ease;
-}
-
-.input {
-  display: block;
-  width: 100%;
-  padding-top: 36.6px;
-  border: none;
-  border-radius: 0;
-  color: rgb(92, 92, 92);
-  font-size: 36.6px;
-  transition: 0.3s ease;
-}
-.input:valid ~ .label {
+  display: flex;
   top: 0;
-  font: 700 22px 'Reem Kufi';
-  color: rgba(255, 255, 255, 0.5);
-}
-.input:focus {
-  outline: none;
-}
-.input:focus ~ .label {
-  top: 0;
-  font: 700 22px 'Reem Kufi';
-  color: #2196f3;
-}
-.input:focus ~ .bar:before {
-  transform: translateX(0);
-}
-.input:-webkit-autofill {
-  -webkit-text-fill-color: white !important;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 5vw;
+  width: 85%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: max(18vh, 8rem);
+  padding-bottom: 2rem;
 }
 
-input[type='date']:required:invalid::-webkit-datetime-edit {
-  color: transparent;
-}
-input[type='date']:focus::-webkit-datetime-edit {
-  color: black !important;
+.container .createHeader h1 {
+  font-size: clamp(1.5rem, 3vw, 4rem);
 }
 
-.quill {
-  font-size: 5rem;
-}
-
-.bar {
-  width: 100%;
-  background: rgba(107, 107, 107, 0.5);
-  content: '';
-  height: 3.6px;
-  transition: 0.3s ease;
-  position: relative;
-}
-.bar:before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 150%;
-  background: #2196f3;
-  transform: translateX(-100%);
-}
-
-.bar::selection {
-  background: rgba(33, 150, 243, 0.3);
-}
-.firstInput {
-  position: absolute;
+.firstdiv {
   display: flex;
   flex-direction: column;
-  width: 90%;
-  height: 30%;
-  top: 0rem;
-  gap: 5rem;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
+  width: 100%;
+  gap: 5vw;
 }
-.secondInput {
+
+.secdiv {
   display: flex;
+  width: 100%;
+  gap: 20vw;
+}
+
+.quillContainer {
+  width: 100%;
+  height: max(60vh, 5rem);
+  display: block;
+}
+.quill {
+  align-self: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+.submitDiv {
+  align-self: flex-start;
+  padding-top: 2rem;
+}
+
+.submit {
+  pointer-events: auto;
+  cursor: pointer;
+  background: #e7e7e7;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-family: inherit;
+  font-size: inherit;
+  position: relative;
+  display: inline-block;
+}
+
+.submit::before,
+.submit::after {
   position: absolute;
-  gap: 20rem;
-  width: 90%;
-  top: 42rem;
+  top: 0;
   left: 0;
-  right: 0;
-  margin: 0rem auto 3rem auto;
-}
-.editor {
-  position: absolute;
-  top: 55rem;
-  left: 0;
-  right: 0;
-  padding-bottom: 10rem;
-  margin: auto;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+
+  height: 100%;
 }
 
-@media screen and (max-width: 2570px) {
-  .createHeader {
-    font-size: 1.7rem;
-  }
-
-  .firstInput {
-    top: 9rem;
-    height: 30rem;
-  }
-
-  .input {
-    font-size: 30px;
-  }
-  .label {
-    font-size: 30px;
-  }
+.submit {
+  font-family: 'Reem Kufi';
+  font-weight: 700;
+  border: 2px solid #000;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  color: #fff;
 }
 
-@media screen and (max-width: 1030px) {
-  .firstInput {
-    top: 10rem;
-  }
+.submit span {
+  position: relative;
+  mix-blend-mode: difference;
+}
 
-  .secondInput {
-    top: 68vh;
-  }
-  .editor {
-    top: 5vh;
-    padding-bottom: 10rem;
+.submit::before {
+  content: '';
+  background: #000;
+  transition: transform 0.3s cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+.submit:hover::before {
+  transform: translate3d(0, -100%, 0);
+}
+.error {
+  color: #bf1650;
+  font-size: 1.3rem;
+}
+
+@media screen and (max-width: 700px) {
+  .secdiv {
+    flex-direction: column;
+    gap: 4vw;
   }
 }
 
-@media screen and (max-width: 730px) {
-  .createHeader {
-    font-size: 0.8rem;
+@media screen and (max-width: 500px) {
+  .submitDiv {
+    padding-top: 5rem;
   }
-
-  .firstInput {
-    height: 20rem;
-    gap: 1rem;
-    top: 12rem;
-  }
-
-  .secondInput {
-    gap: 2rem;
-    top: 80vh;
-  }
-
-  .input {
-    font-size: 15px;
-  }
-  .label {
-    font-size: 15px;
-  }
-
-  .input:focus ~ .label {
-    font-size: 0.9rem;
-  }
-
-  .editor {
-    top: 100vh;
-    padding-bottom: 10rem;
+  .submit {
+    padding: 0.7rem 2.2rem;
   }
 }

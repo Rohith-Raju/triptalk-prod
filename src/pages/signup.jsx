@@ -10,7 +10,7 @@ import styles from '../styles/pages/login.module.css';
 
 // components and contexts import
 import Slider from '../components/Silder';
-import FormError from '../components/FormError';
+import { FormError } from '../components/FormError';
 
 //custom hooks import
 import { useAuth } from '../contexts/Authcontext';

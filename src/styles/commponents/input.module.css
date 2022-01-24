@@ -1,0 +1,74 @@
+.group {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.label {
+  position: absolute;
+  top: 36.6666666667px;
+  color: rgba(49, 49, 49, 0.5);
+  font: 400 'Reem Kufi';
+  font-size: clamp(1.5rem, 2.6vw, 5rem);
+  cursor: text;
+  transition: 0.25s ease;
+}
+.input {
+  display: block;
+  width: 100%;
+  padding-top: max(2.1vw, 2.7rem);
+  border: none;
+  border-radius: 0;
+  color: rgb(92, 92, 92);
+  font-family: 'Reem Kufi';
+  font-size: clamp(1.2rem, 2.3vw, 5rem);
+  transition: 0.3s ease;
+}
+.input:valid ~ .label {
+  top: 0;
+  font: 700 22px 'Reem Kufi';
+  color: rgba(255, 255, 255, 0.5);
+}
+.input:focus {
+  outline: none;
+}
+.input:focus ~ .label {
+  top: 0;
+  font: 700 clamp(1.2rem, 1.5vw, 5rem) 'Reem Kufi';
+  color: #2196f3;
+}
+.input:focus ~ .bar:before {
+  transform: translateX(0);
+}
+.input:-webkit-autofill {
+  -webkit-text-fill-color: white !important;
+}
+
+input[type='date']:required:invalid::-webkit-datetime-edit {
+  color: transparent;
+}
+input[type='date']:focus::-webkit-datetime-edit {
+  color: black !important;
+}
+
+.bar {
+  width: 100%;
+  background: rgba(107, 107, 107, 0.5);
+  content: '';
+  height: 3.6px;
+  transition: 0.3s ease;
+  position: relative;
+}
+.bar:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 150%;
+  background: #2196f3;
+  transform: translateX(-100%);
+}
+.error {
+  color: #bf1650;
+  font-size: 1.3rem;
+}
