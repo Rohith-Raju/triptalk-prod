@@ -15,13 +15,13 @@
   z-index: -1;
   left: 0;
   right: 0;
-  width: 90%;
   margin-top: max(18vh, 3rem);
   margin-left: auto;
   margin-right: auto;
   display: grid;
   grid-template-rows: auto;
   grid-gap: 3rem;
+  padding-bottom: 2rem;
 }
 
 @media (min-width: 30em) {
