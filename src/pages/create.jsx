@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 import * as yup from 'yup';
 
 import 'react-quill/dist/quill.snow.css';
@@ -30,6 +30,7 @@ const storage = getStorage();
 
 //styles
 import styles from '../styles/pages/create.module.css';
+import { Barloader } from '../components/loader';
 
 const TitleFormRules = {
   required: {
@@ -63,12 +64,8 @@ const DescFormRules = {
   },
 };
 
-const schema = yup.object().shape({
-  Title: yup.string().required().min(15).max(40),
-  Description: yup.string().required().min(35).max(150),
-  Date: yup.date().required(),
-  Location: yup.string().required(),
-  Body: yup.string().required().min(250).max(2000),
+const bodySchema = yup.object().shape({
+  Body: yup.string().required().min(250).max(2000).nullable(),
 });
 
 const modules = {
@@ -98,6 +95,7 @@ const Create = () => {
   const [Body, setBody] = useState('');
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   //error Ref
@@ -125,34 +123,31 @@ const Create = () => {
     if (message != null) window.scrollTo(0, 0);
   };
 
-  const ValidateSchema = (data) => {
-    schema
-      .validate(data)
-      .then(() => {
-        return false;
-      })
-      .catch((err) => {
-        errorMessage(err.message);
-        return true;
-      });
+  const isBodyValid = async (data) => {
+    const body = {
+      Body: data,
+    };
+    await bodySchema.validate(body).catch((err) => errorMessage(err.message));
+    const result = await bodySchema.isValid(body);
+    if (result) return Promise.resolve(true);
+    else return Promise.reject();
   };
 
-  const ValidateImage = (image) => {
+  const isImagevalid = async (image) => {
     if (image == null) {
       errorMessage('Image is missing please select one');
-      return true;
-    } else return false;
-  };
-
-  const ValidateData = (data, image) => {
-    if (!ValidateSchema(data) && !ValidateImage(image)) return true;
-    else return false;
+      return Promise.reject();
+    } else {
+      return Promise.resolve(true);
+    }
   };
 
   const onSubmit = async (data) => {
-    data['Body'] = Body;
-    if (ValidateData(data, image)) {
-      if (error == null) {
+    setError(null);
+    Promise.all([isBodyValid(Body), isImagevalid(image)])
+      .then(async () => {
+        setLoading(true);
+        data['Body'] = Body;
         const storageRef = ref(
           storage,
           `images/${currentuser.uid + image.name}`
@@ -162,21 +157,24 @@ const Create = () => {
         } catch (e) {
           errorMessage('Problem in uploading the image');
         }
-
         await getDownloadURL(storageRef)
           .then((res) => (data['Image'] = res))
-          .catch((e) => errorMessage('Problem in uploading the image'));
-
-        data['Timestamp'] = Timestamp();
+          .catch((e) =>
+            errorMessage('Problem in uploading the image' + e.message)
+          );
+        data['Timestamp'] = Timestamp.fromDate(new Date());
         data['UserName'] = currentuser.displayName;
+        data['Uid'] = currentuser.uid;
         try {
           await addDoc(collection(db, 'blog'), data);
           history.push('/explore');
         } catch (e) {
           errorMessage("Problem in saving you're data");
+          console.log(e);
         }
-      }
-    }
+        setLoading(false);
+      })
+      .catch();
   };
 
   return (
@@ -250,9 +248,10 @@ const Create = () => {
             />
           </div>
           <div className={styles.submitDiv}>
-            <button className={styles.submit}>
+            <button disabled={loading} className={styles.submit}>
               <span>Submit</span>
             </button>
+            {loading ? <Barloader /> : ''}
           </div>
         </div>
       </form>

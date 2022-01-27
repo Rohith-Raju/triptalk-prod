@@ -1,7 +1,7 @@
 import React from 'react';
-import Upload from '../components/Upload';
+import { Barloader } from '../components/loader';
 
 const Stories = () => {
-  return <Upload />;
+  return <Barloader />;
 };
 export default Stories;

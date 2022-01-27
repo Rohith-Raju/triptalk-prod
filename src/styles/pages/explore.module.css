@@ -1,11 +1,24 @@
-.grid {
+.container {
   position: absolute;
-  max-width: 1240px;
+  width: 100%;
+  padding-bottom: 10rem;
+  z-index: -1;
+}
+.container > h1 {
+  font-size: clamp(1.5rem, 3vw, 4rem);
+  margin-top: max(20vh, 10rem);
+  text-align: center;
+}
+
+.grid {
+  max-width: 80%;
   z-index: -1;
   left: 0;
   right: 0;
   width: 90%;
-  margin: 20rem auto;
+  margin-top: max(18vh, 3rem);
+  margin-left: auto;
+  margin-right: auto;
   display: grid;
   grid-template-rows: auto;
   grid-gap: 3rem;
@@ -40,6 +53,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100%;
+  max-width: max-content;
   position: relative;
   top: 0;
   transition: all 0.1s ease-in;
@@ -56,16 +70,17 @@
   justify-content: space-between;
 }
 .card h1 {
-  font-size: 20px;
+  font-size: clamp(1.2rem, 1.2vw, 2.5rem);
   margin: 0;
   color: #333;
 }
 .card p {
   flex: 1;
   line-height: 1.4;
+  font-size: clamp(0.8rem, 1vw, 2rem);
 }
 .card span {
-  font-size: 12px;
+  font-size: clamp(0.7rem, 0.8vw, 1.7rem);
   font-weight: bold;
   color: #999;
   text-transform: uppercase;

@@ -44,6 +44,8 @@
 }
 
 .submitDiv {
+  display: flex;
+  gap: 10vw;
   align-self: flex-start;
   padding-top: 2rem;
 }
