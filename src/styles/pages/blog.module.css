@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 85%;
+  height: auto;
+  top: max(15rem, 11vw);
+  left: 0;
+  right: 0;
+  margin-right: auto;
+  margin-left: auto;
+  gap: 3rem;
+  align-items: center;
+}
+.title {
+  letter-spacing: max(0.3rem, 0.5vw);
+  font-size: clamp(0.4rem, 1vw, 2.5rem);
+}
+
+.photodiv {
+  width: 80%;
+  height: clamp(10rem, 100vh, 80rem);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.details {
+  display: flex;
+  font-size: clamp(0.7rem, 1.2vw, 2rem);
+  gap: 4rem;
+  width: 80%;
+  color: rgba(29, 29, 29, 0.4);
+}
+
+.calendar,
+.username,
+.location {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.userspan,
+.calspan,
+.locspan {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.body {
+  width: 80%;
+  font-size: clamp(0.7rem, 1vw, 2rem);
+  letter-spacing: 0.09rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    gap: 2rem;
+  }
+
+  .photodiv {
+    width: 80%;
+    height: 45vh;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .container {
+    top: 10rem;
+    gap: 1.8rem;
+  }
+
+  .title {
+    text-align: center;
+  }
+  .photodiv {
+    width: 100%;
+    height: 40vh;
+  }
+  .details {
+    width: 100%;
+    gap: 1rem;
+  }
+  .userspan,
+  .calspan,
+  .locspan {
+    gap: 0.3rem;
+  }
+  .body {
+    width: 100%;
+    letter-spacing: 0.05rem;
+  }
+}

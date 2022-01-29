@@ -11,15 +11,18 @@ import {
   limit,
   startAfter,
 } from 'firebase/firestore';
-import { Barloader } from '../components/loader';
+import { useHistory } from 'react-router-dom';
 
 const Explore = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hasmore, setHasmore] = useState(true);
   const [documentSnapshot, setDocumentSnapshot] = useState();
+  const history = useHistory();
+
   const db = getFirestore();
   const blogref = collection(db, 'blog');
+
   useEffect(async () => {
     const fetchdata = [];
     const timestampQuery = query(
@@ -37,6 +40,9 @@ const Explore = () => {
     setData(fetchdata);
     setDocumentSnapshot(getall);
     setLoading(false);
+    return () => {
+      getall();
+    };
   }, []);
 
   const fetchNext = async () => {
@@ -76,7 +82,10 @@ const Explore = () => {
             hasMore={hasmore}
           >
             <section className={styles.grid}>
-              <div className={styles.itemone}>
+              <div
+                onClick={(e) => history.push(`/explore/${data[0].id}`)}
+                className={styles.itemone}
+              >
                 <a className={styles.card}>
                   <div
                     style={{
@@ -93,7 +102,11 @@ const Explore = () => {
               </div>
               {data.slice(1).map((key) => {
                 return (
-                  <div key={key.id} className="item2">
+                  <div
+                    onClick={(e) => history.push(`/explore/${key.id}`)}
+                    key={key.id}
+                    className="item2"
+                  >
                     <a className={styles.card}>
                       <div
                         className={styles.thumb}
