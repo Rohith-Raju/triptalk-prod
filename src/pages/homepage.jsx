@@ -41,33 +41,33 @@ const Home = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <section className={styles.section}>
-        <div className={styles.hero}>
-          <div className={styles.left}>
-            <div className={styles.header}>
-              <h1 ref={(e) => (stagger = e)} className={styles.heading}>
-                Make you're trips more Memorable
-              </h1>
-              <div ref={(e) => (cta = e)} className={styles.cta}>
-                <img
-                  src={process.env.PUBLIC_URL + '/icons/Ellipse.png'}
-                  alt=""
-                />
-                <span>Get Started</span>
+      <div>
+        <Pink />
+        <div className={styles.section}>
+          <Pink />
+          <section className={styles.hero}>
+            <div className={styles.left}>
+              <div className={styles.header}>
+                <h1 ref={(e) => (stagger = e)} className={styles.heading}>
+                  Make you're trips more Memorable
+                </h1>
+                <div ref={(e) => (cta = e)} className={styles.cta}>
+                  <img src={process.env.PUBLIC_URL + '/icons/Ellipse.png'} />
+                  <span>Get Started</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className={styles.right}>
-            <img
-              ref={(e) => (carRef = e)}
-              className={styles.car}
-              src={process.env.PUBLIC_URL + '/images/car_1.svg'}
-              alt="car"
-            ></img>
-          </div>
+            <div className={styles.right}>
+              <img
+                ref={(e) => (carRef = e)}
+                className={styles.car}
+                src={process.env.PUBLIC_URL + '/images/car_1.svg'}
+                alt="car"
+              ></img>
+            </div>
+          </section>
         </div>
-      </section>
-      <Pink />
+      </div>
     </React.Fragment>
   );
 };

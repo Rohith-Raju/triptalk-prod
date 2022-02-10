@@ -1,0 +1,26 @@
+/* styles are already inherited from explore.
+ this file contains the styles which are applied only to stories page*/
+
+.cross {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.iconsdiv {
+  display: flex;
+  justify-content: space-between;
+}
+.extra {
+  display: flex;
+  gap: max(1rem, 3vw);
+}
+.location {
+  display: flex;
+  align-items: center;
+  gap: max(0.2rem, 1vw);
+}
+
+.extrasmall {
+  display: flex;
+  gap: max(1rem, 1vw);
+}

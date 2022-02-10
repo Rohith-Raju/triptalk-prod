@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { gsap, Power4 } from 'gsap';
 import styles from '../styles/commponents/pink.module.css';
 
-const Pink = () => {
+const Pink = ({ children }) => {
   let pink = useRef();
 
   useEffect(() => {
@@ -14,10 +14,6 @@ const Pink = () => {
     });
   });
 
-  return (
-    <div>
-      <div ref={(e) => (pink = e)} className={styles.pink}></div>
-    </div>
-  );
+  return <div ref={(e) => (pink = e)} className={styles.pink}></div>;
 };
 export default Pink;

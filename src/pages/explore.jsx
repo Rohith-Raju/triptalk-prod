@@ -12,6 +12,7 @@ import {
   startAfter,
 } from 'firebase/firestore';
 import { useHistory } from 'react-router-dom';
+import { GoLocation } from 'react-icons/go';
 
 const Explore = () => {
   const [data, setData] = useState([]);
@@ -59,7 +60,6 @@ const Explore = () => {
       setHasmore(false);
     } else {
       getNext.forEach((doc) => {
-        console.log(doc);
         nextdata.push({
           id: doc.id,
           ...doc.data(),
@@ -96,7 +96,10 @@ const Explore = () => {
                   <article>
                     <h1>{data[0].Title}</h1>
                     <p>{data[0].Description}</p>
-                    <span>📍{data[0].Location}</span>
+                    <span>
+                      <GoLocation />
+                      {data[0].Location}
+                    </span>
                   </article>
                 </a>
               </div>
@@ -105,7 +108,6 @@ const Explore = () => {
                   <div
                     onClick={(e) => history.push(`/explore/${key.id}`)}
                     key={key.id}
-                    className="item2"
                   >
                     <a className={styles.card}>
                       <div
@@ -117,7 +119,10 @@ const Explore = () => {
                       <article>
                         <h1>{key.Title}</h1>
                         <p>{key.Description}</p>
-                        <span>📍{key.Location}</span>
+                        <span>
+                          <GoLocation />
+                          {key.Location}
+                        </span>
                       </article>
                     </a>
                   </div>

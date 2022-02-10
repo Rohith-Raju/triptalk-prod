@@ -4,6 +4,7 @@
   width: 0%;
   z-index: -2;
   background-color: #f8d8d0;
+  align-self: flex-start;
 }
 .silver {
   position: absolute;

@@ -39,11 +39,11 @@ const TitleFormRules = {
   },
 
   maxLength: {
-    value: 40,
+    value: 50,
     message: 'Title  should not exceed 40 characters',
   },
   minLength: {
-    value: 15,
+    value: 20,
     message: 'Title  should exceed 20 charecters',
   },
 };
@@ -55,7 +55,7 @@ const DescFormRules = {
   },
 
   maxLength: {
-    value: 150,
+    value: 250,
     message: 'Description  should not exceed 150 characters',
   },
   minLength: {
@@ -65,7 +65,7 @@ const DescFormRules = {
 };
 
 const bodySchema = yup.object().shape({
-  Body: yup.string().required().min(250).max(2000).nullable(),
+  Body: yup.string().required().min(500).max(6000).nullable(),
 });
 
 const modules = {
@@ -192,7 +192,6 @@ const Create = () => {
           ) : (
             ''
           )}
-
           <div className={styles.firstdiv}>
             <Input
               rules={TitleFormRules}
