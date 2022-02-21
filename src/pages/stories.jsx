@@ -11,6 +11,7 @@ import {
   limit,
   startAfter,
   where,
+  deleteDoc,
 } from 'firebase/firestore';
 import { useHistory } from 'react-router-dom';
 import { GoLocation } from 'react-icons/go';
@@ -26,8 +27,29 @@ import { useAuth } from '../contexts/Authcontext';
 import styles from '../styles/pages/explore.module.css';
 import stories from '../styles/pages/stories.module.css';
 
+//mui imports
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 const Stories = () => {
-  const [data, setData] = useState([]);
+  //dialog states
+  const [dialog, setDialog] = useState(false);
+
+  //handling dialogs
+  const handleDeleteDialogOpen = (id) => {
+    setDialog(true);
+  };
+
+  const handleDeleteDialogClose = () => {
+    setDialog(false);
+  };
+
+  const [data, setData] = useState('');
+  const [deletePost, setDeletePost] = useState(false);
   const [loading, setLoading] = useState(true);
   const [hasmore, setHasmore] = useState(true);
   const [documentSnapshot, setDocumentSnapshot] = useState();
@@ -90,6 +112,34 @@ const Stories = () => {
 
   return (
     <React.Fragment>
+      {/* dialog code for delete and update */}
+      <Dialog
+        open={dialog}
+        onClose={() => setDialog(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {'Are you sure you want to delete this post?'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Beware,the post once deleted cannot be recoverd. Please make sure
+            you're deleting the right post
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDialog(false)}>Cancel</Button>
+          <Button
+            color="error"
+            variant="outlined"
+            onClick={handleDeleteDialogClose}
+            autoFocus
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Usernav />
       <div className={styles.container}>
         <h1> {empty ? 'No records found' : "You're Stories"} </h1>
@@ -143,6 +193,7 @@ const Stories = () => {
                             cursor: 'pointer',
                           }}
                           size={'max(1rem,2vw)'}
+                          onClick={(e) => setDialog(true)}
                         />
                         <MdEdit
                           onMouseEnter={({ target }) =>
@@ -195,6 +246,7 @@ const Stories = () => {
                               }}
                               onClick={() => history.push('/delete')}
                               size={'max(1rem,1.8vw)'}
+                              onClick={(e) => setDialog(true)}
                             />
                             <MdEdit
                               style={{
