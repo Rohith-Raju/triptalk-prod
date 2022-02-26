@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Usernav from '../components/UserNavbar';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
+
+//firestore
 import {
   getDocs,
   query,
@@ -12,7 +14,12 @@ import {
   startAfter,
   where,
   deleteDoc,
+  doc,
 } from 'firebase/firestore';
+
+//
+import { deleteObject, ref, getStorage } from 'firebase/storage';
+
 import { useHistory } from 'react-router-dom';
 import { GoLocation } from 'react-icons/go';
 
@@ -39,32 +46,45 @@ const Stories = () => {
   //dialog states
   const [dialog, setDialog] = useState(false);
 
-  //handling dialogs
-  const handleDeleteDialogOpen = (id) => {
-    setDialog(true);
-  };
 
-  const handleDeleteDialogClose = () => {
-    setDialog(false);
-  };
 
   const [data, setData] = useState('');
   const [deletePost, setDeletePost] = useState(false);
   const [loading, setLoading] = useState(true);
   const [hasmore, setHasmore] = useState(true);
   const [documentSnapshot, setDocumentSnapshot] = useState();
-  const [empty, setEmpty] = useState(true);
+  const [empty, setEmpty] = useState(false);
   const history = useHistory();
   const { currentuser } = useAuth();
 
+  //databse initilization and referencing
   const db = getFirestore();
-  const blogref = collection(db, 'blog');
+  const storage = getStorage();
+
+  const blogRef = collection(db, 'blog');
+
+  const handleDocumentDelete = async () => {
+    if (deletePost) {
+      const imageDoc = data.filter((key) => key.id === deletePost)[0];
+      const imagepath = imageDoc.Imagepath;
+      const storageref = ref(storage, imagepath);
+      const ImageDeleted = deleteObject(storageref);
+      const DocDeleted = deleteDoc(doc(db, 'blog', deletePost));
+      Promise.all([ImageDeleted, DocDeleted]).then(() => {
+        const newData = data.filter((key) => key.id != deletePost);
+        if (newData.length === 0) setEmpty(true);
+        setData(newData);
+        setDeletePost(false);
+        setDialog(false);
+      });
+    }
+  };
 
   useEffect(async () => {
     const fetchdata = [];
     console.log(typeof currentuser.uid);
     const timestampQuery = query(
-      blogref,
+      blogRef,
       where('Uid', '==', currentuser.uid),
       orderBy('Timestamp', 'desc'),
       limit(3)
@@ -76,7 +96,8 @@ const Stories = () => {
         ...doc.data(),
       });
     });
-    if (!getall.empty) setEmpty(false);
+    console.log(getall);
+    if (getall.empty) setEmpty(true);
     setData(fetchdata);
     setDocumentSnapshot(getall);
     setLoading(false);
@@ -89,7 +110,7 @@ const Stories = () => {
     const nextdata = [];
     const lastDoc = documentSnapshot.docs[documentSnapshot.size - 1];
     const nextQuery = query(
-      blogref,
+      blogRef,
       orderBy('Timestamp', 'desc'),
       startAfter(lastDoc),
       limit(4)
@@ -129,11 +150,18 @@ const Stories = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDialog(false)}>Cancel</Button>
+          <Button
+            onClick={() => {
+              setDialog(false);
+              setDeletePost(false);
+            }}
+          >
+            Cancel
+          </Button>
           <Button
             color="error"
             variant="outlined"
-            onClick={handleDeleteDialogClose}
+            onClick={handleDocumentDelete}
             autoFocus
           >
             Delete
@@ -143,16 +171,13 @@ const Stories = () => {
       <Usernav />
       <div className={styles.container}>
         <h1> {empty ? 'No records found' : "You're Stories"} </h1>
-        <div className={styles.cross}>
-          {empty ? (
+        {empty ? (
+          <div className={styles.cross}>
             <div className={stories.cross}>
               <ImCross color="#9F1D35" size={'10vw'} />
             </div>
-          ) : (
-            ''
-          )}
-        </div>
-        {!loading ? (
+          </div>
+        ) : !loading ? (
           <InfiniteScroll
             dataLength={data.length}
             next={fetchNext}
@@ -162,16 +187,14 @@ const Stories = () => {
               <div className={styles.itemone}>
                 <a className={styles.card}>
                   <div
-                    onClick={(e) => history.push(`/explore/${data[0].id}`)}
+                    onClick={() => history.push(`/explore/${data[0].id}`)}
                     style={{
                       backgroundImage: `url(${data[0].Image})`,
                     }}
                     className={styles.thumb}
                   ></div>
                   <article>
-                    <div
-                      onClick={(e) => history.push(`/explore/${data[0].id}`)}
-                    >
+                    <div onClick={() => history.push(`/explore/${data[0].id}`)}>
                       <h1>{data[0].Title}</h1>
                       <p>{data[0].Description}</p>
                     </div>
@@ -193,7 +216,10 @@ const Stories = () => {
                             cursor: 'pointer',
                           }}
                           size={'max(1rem,2vw)'}
-                          onClick={(e) => setDialog(true)}
+                          onClick={() => {
+                            setDialog(true);
+                            setDeletePost(data[0].id);
+                          }}
                         />
                         <MdEdit
                           onMouseEnter={({ target }) =>
@@ -206,6 +232,7 @@ const Stories = () => {
                             cursor: 'pointer',
                           }}
                           size={'max(1rem,2vw)'}
+                          onClick={() => history.push(`/update/${data[0].id}`)}
                         />
                       </span>
                     </div>
@@ -244,9 +271,11 @@ const Stories = () => {
                               onMouseLeave={({ target }) => {
                                 target.style.color = '';
                               }}
-                              onClick={() => history.push('/delete')}
                               size={'max(1rem,1.8vw)'}
-                              onClick={(e) => setDialog(true)}
+                              onClick={() => {
+                                setDialog(true);
+                                setDeletePost(key.id);
+                              }}
                             />
                             <MdEdit
                               style={{
@@ -259,6 +288,7 @@ const Stories = () => {
                                 target.style.color = '';
                               }}
                               size={'max(1rem,1.8vw)'}
+                              onClick={() => history.push(`/update/${key.id}`)}
                             />
                           </span>
                         </div>

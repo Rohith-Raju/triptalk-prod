@@ -19,13 +19,20 @@ import { useAuth } from '../contexts/Authcontext';
 import {
   getFirestore,
   collection,
-  addDoc,
+  updateDoc,
   Timestamp,
+  doc,
 } from 'firebase/firestore';
 const db = getFirestore();
 
 // firebase cloud
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage';
 const storage = getStorage();
 
 //styles
@@ -90,12 +97,17 @@ const formats = [
   'indent',
 ];
 
-const Create = () => {
+const Update = ({ data, PreError, id }) => {
   //states
-  const [Body, setBody] = useState('');
-  const [image, setImage] = useState(null);
-  const [error, setError] = useState(null);
+  const [Body, setBody] = useState(data.Body);
+  const [image, setImage] = useState({ name: data.Imagepath.split('/')[1] });
+  const [error, setError] = useState(PreError);
   const [loading, setLoading] = useState(false);
+
+  //image name from document to compare
+  const docImage = data.Imagepath.split('/')[1];
+
+  //react router
   const history = useHistory();
 
   //error Ref
@@ -109,10 +121,10 @@ const Create = () => {
 
   const { handleSubmit, control } = useForm({
     defaultValues: {
-      Title: '',
-      Description: '',
-      Date: '',
-      Location: '',
+      Title: data.Title,
+      Description: data.Description,
+      Date: data.Date,
+      Location: data.Location,
     },
     mode: 'onChange',
     criteriaMode: 'all',
@@ -142,32 +154,40 @@ const Create = () => {
     }
   };
 
-  const onSubmit = async (data) => {
+  console.log(image.name);
+
+  const onSubmit = async (formdata) => {
     setError(null);
+    console.log(docImage, image);
+    if (docImage !== image.name) {
+      const delref = ref(storage, data.Imagepath);
+      deleteObject(delref);
+    }
+
     Promise.all([isBodyValid(Body), isImagevalid(image)])
       .then(async () => {
         setLoading(true);
-        data['Body'] = Body;
+        formdata['Body'] = Body;
         const storageRef = ref(storage, `${currentuser.uid}/${image.name}`);
 
         try {
           const upload = await uploadBytes(storageRef, image);
           console.log(upload);
-          data['Imagepath'] = upload.metadata.fullPath;
+          formdata['Imagepath'] = upload.metadata.fullPath;
         } catch (e) {
           errorMessage('Problem in uploading the image');
         }
         await getDownloadURL(storageRef)
-          .then((res) => (data['Image'] = res))
+          .then((res) => (formdata['Image'] = res))
           .catch((e) =>
             errorMessage('Problem in fethcing the image' + e.message)
           );
-        data['Timestamp'] = Timestamp.fromDate(new Date());
-        data['UserName'] = currentuser.displayName;
-        data['Uid'] = currentuser.uid;
+        formdata['Timestamp'] = Timestamp.fromDate(new Date());
+        formdata['UserName'] = currentuser.displayName;
+        formdata['Uid'] = currentuser.uid;
 
         try {
-          await addDoc(collection(db, 'blog'), data);
+          await updateDoc(doc(db, 'blog', id), formdata);
           history.push('/explore');
         } catch (e) {
           errorMessage("Problem in saving you're data");
@@ -175,88 +195,92 @@ const Create = () => {
         }
         setLoading(false);
       })
-      .catch();
+      .catch(() => setError('something went wrong please try again'));
   };
 
   return (
     <React.Fragment>
       <Usernav />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.container}>
-          <header className={styles.createHeader}>
-            <h1>Write you're story</h1>
-          </header>
-          {error ? (
-            <div ref={errorRef}>
-              <p className={styles.error}>⚠ {error}</p>
+      {data ? (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={styles.container}>
+            <header className={styles.createHeader}>
+              <h1>Update you're story</h1>
+            </header>
+            {error ? (
+              <div ref={errorRef}>
+                <p className={styles.error}>⚠ {error}</p>
+              </div>
+            ) : (
+              ''
+            )}
+            <div className={styles.firstdiv}>
+              <Input
+                rules={TitleFormRules}
+                placeholder="Title"
+                control={control}
+                name="Title"
+                label="Title"
+              />
+              <Input
+                rules={DescFormRules}
+                control={control}
+                placeholder="Description"
+                name="Description"
+                label="Description"
+              />
             </div>
-          ) : (
-            ''
-          )}
-          <div className={styles.firstdiv}>
-            <Input
-              rules={TitleFormRules}
-              placeholder="Title"
-              control={control}
-              name="Title"
-              label="Title"
-            />
-            <Input
-              rules={DescFormRules}
-              control={control}
-              placeholder="Description"
-              name="Description"
-              label="Description"
-            />
+            <div className={styles.secdiv}>
+              <Input
+                rules={{
+                  required: {
+                    value: true,
+                    message: 'date should not be empty',
+                  },
+                }}
+                control={control}
+                label="Date"
+                name="Date"
+                type="date"
+              />
+              <Input
+                rules={{
+                  required: {
+                    value: true,
+                    message: 'Location cant be empty',
+                  },
+                }}
+                control={control}
+                label="Location"
+                name="Location"
+                placeholder="Location"
+              />
+            </div>
+            <Upload file={image} handleChange={handleImageChange} />
+            <div className={styles.quillContainer}>
+              <ReactQuill
+                theme="snow"
+                value={Body}
+                onChange={setBody}
+                className={styles.quill}
+                placeholder="You're body goes here"
+                formats={formats}
+                modules={modules}
+              />
+            </div>
+            <div className={styles.submitDiv}>
+              <button disabled={loading} className={styles.submit}>
+                <span>Submit</span>
+              </button>
+              {loading ? <Barloader /> : ''}
+            </div>
           </div>
-          <div className={styles.secdiv}>
-            <Input
-              rules={{
-                required: {
-                  value: true,
-                  message: 'date should not be empty',
-                },
-              }}
-              control={control}
-              label="Date"
-              name="Date"
-              type="date"
-            />
-            <Input
-              rules={{
-                required: {
-                  value: true,
-                  message: 'Location cant be empty',
-                },
-              }}
-              control={control}
-              label="Location"
-              name="Location"
-              placeholder="Location"
-            />
-          </div>
-          <Upload file={image} handleChange={handleImageChange} />
-          <div className={styles.quillContainer}>
-            <ReactQuill
-              theme="snow"
-              value={Body}
-              onChange={setBody}
-              className={styles.quill}
-              placeholder="You're body goes here"
-              formats={formats}
-              modules={modules}
-            />
-          </div>
-          <div className={styles.submitDiv}>
-            <button disabled={loading} className={styles.submit}>
-              <span>Submit</span>
-            </button>
-            {loading ? <Barloader /> : ''}
-          </div>
-        </div>
-      </form>
+        </form>
+      ) : (
+        ''
+      )}
     </React.Fragment>
   );
 };
 
-export default Create;
+export default Update;

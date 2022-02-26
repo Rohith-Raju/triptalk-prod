@@ -6,6 +6,7 @@ import Explore from './pages/explore';
 import Create from './pages/create';
 import Stories from './pages/stories';
 import Blog from './pages/Blog';
+import Preload from './FormPrelod/Preload';
 
 //modules ,  private route  and contexts imports
 import { Authprovider } from './contexts/Authcontext';
@@ -26,6 +27,7 @@ function App() {
             <PrivateRoute path="/explore" exact component={Explore} />
             <PrivateRoute path="/create" exact component={Create} />
             <PrivateRoute path="/explore/:id" exact component={Blog} />
+            <PrivateRoute path="/update/:id" exact component={Preload} />
           </Switch>
         </Router>
       </Authprovider>
