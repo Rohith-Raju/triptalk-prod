@@ -9,6 +9,7 @@ const Home = () => {
   let stagger = useRef();
   let cta = useRef();
   let carRef = useRef();
+  let footerRef = useRef();
 
   useEffect(() => {
     gsap.set(stagger, { y: 100 });
@@ -36,13 +37,18 @@ const Home = () => {
       duration: 1,
       ease: Power4.easeInOut,
     });
+    gsap.to(footerRef, {
+      opacity: 1,
+      delay: 2,
+      duration: 1,
+    });
   });
 
   return (
     <React.Fragment>
       <Navbar />
-      <div>
-        <Pink />
+      <Pink />
+      <div className={styles.body}>
         <div className={styles.section}>
           <Pink />
           <section className={styles.hero}>
@@ -66,6 +72,20 @@ const Home = () => {
               ></img>
             </div>
           </section>
+          <footer
+            ref={(e) => {
+              footerRef = e;
+            }}
+            className={styles.footer}
+          >
+            <p>
+              Hi there, this application is STRICTLY not a product. This is a
+              personal project made by student. Send an email to
+              <span className={styles.mail}> meetrohithkraju@gmail.com </span>
+              with feedback 😀;
+            </p>
+            <p>Created and maintained by Rohtih </p>
+          </footer>
         </div>
       </div>
     </React.Fragment>

@@ -46,8 +46,7 @@ const Stories = () => {
   //dialog states
   const [dialog, setDialog] = useState(false);
 
-
-
+  //other data
   const [data, setData] = useState('');
   const [deletePost, setDeletePost] = useState(false);
   const [loading, setLoading] = useState(true);

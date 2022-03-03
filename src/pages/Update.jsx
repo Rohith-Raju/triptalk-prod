@@ -16,13 +16,7 @@ import Upload from '../components/Upload';
 import { useAuth } from '../contexts/Authcontext';
 
 //database firestore
-import {
-  getFirestore,
-  collection,
-  updateDoc,
-  Timestamp,
-  doc,
-} from 'firebase/firestore';
+import { getFirestore, updateDoc, Timestamp, doc } from 'firebase/firestore';
 const db = getFirestore();
 
 // firebase cloud

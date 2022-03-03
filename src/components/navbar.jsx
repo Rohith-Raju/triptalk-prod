@@ -12,7 +12,7 @@ const navbar = () => {
           src={process.env.PUBLIC_URL + '/icons/tt logo.png'}
           alt="triptalk logo"
         />
-        <a className={styles.links} href="/explore">
+        <a className={styles.links} href="/">
           Explore
         </a>
         <a className={styles.links} href="/stories">

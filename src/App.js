@@ -20,11 +20,11 @@ function App() {
       <Authprovider>
         <Router>
           <Switch>
-            <Route path="/" exact component={Homepage} />
+            <Route path="/home" exact component={Homepage} />
             <Route path="/signin" exact component={Login} />
-            <Route path="/stories" exact component={Stories} />
             <Route path="/signup" exact component={Signup} />
-            <PrivateRoute path="/explore" exact component={Explore} />
+            <PrivateRoute path="/stories" exact component={Stories} />
+            <PrivateRoute path="/" exact component={Explore} />
             <PrivateRoute path="/create" exact component={Create} />
             <PrivateRoute path="/explore/:id" exact component={Blog} />
             <PrivateRoute path="/update/:id" exact component={Preload} />

@@ -47,12 +47,12 @@ const Usernav = () => {
     <React.Fragment>
       <nav className={styles.navbar}>
         <img
-          onClick={(e) => history.push('/')}
+          onClick={() => history.push('/home')}
           className={styles.logo}
           src={process.env.PUBLIC_URL + '/icons/tt logo.png'}
           alt="triptalk logo"
         />
-        <a className={styles.links} href="/explore">
+        <a className={styles.links} href="/">
           Explore
         </a>
         <a className={styles.links} href="/stories">
@@ -72,23 +72,21 @@ const Usernav = () => {
             <img className={styles.inneravatar} src={avatar} />
             <h4>{user}</h4>
             <div className={styles.profileBtn}>
-              <a href="/edit">Edit profile</a>
+              <a onClick={handleSignOut}>Logout</a>
             </div>
             <div className={styles.userLinks}>
               <div className={styles.Settings}>
-                <a className={styles.animlink} href="/accountset">
-                  Account Settings
+                <a className={styles.animlink} href="/home">
+                  Home
                 </a>
               </div>
               <div className={styles.terms}>
                 <a className={styles.animlink} href="/terms">
-                  Terms
+                  About Creator
                 </a>
               </div>
               <div className={styles.signout}>
-                <a className={styles.animlink} onClick={handleSignOut}>
-                  Signout
-                </a>
+                <a className={styles.animlink}>Delete Account</a>
               </div>
             </div>
           </div>

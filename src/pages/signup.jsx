@@ -38,8 +38,8 @@ const Signup = () => {
 
   const google_popup = async () => {
     Googlesignup()
-      .then((res) => {
-        history.push('/explore');
+      .then(() => {
+        history.push('/');
       })
       .catch((err) => {
         const errorMessage = err.code.split('/')[1];
@@ -53,8 +53,8 @@ const Signup = () => {
     e.preventDefault();
     setbuttonloading(true);
     emailPasswordSignUp(emailRef.value, passwordRef.value)
-      .then((res) => {
-        history.push('/explore');
+      .then(() => {
+        history.push('/');
         setbuttonloading(false);
       })
       .catch((err) => {
@@ -83,7 +83,7 @@ const Signup = () => {
       <div ref={(e) => (display = e)} className={styles.display}>
         <nav className={styles.nav}>
           <img
-            onClick={() => history.push('/')}
+            onClick={() => history.push('/home')}
             src={process.env.PUBLIC_URL + '/icons/tt logo.png'}
             alt="logo"
           />

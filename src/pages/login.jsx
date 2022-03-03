@@ -29,8 +29,8 @@ const login = () => {
 
   const google_popup = async () => {
     Googlesignup()
-      .then((res) => {
-        history.push('/explore');
+      .then(() => {
+        history.push('/');
       })
       .catch((err) => {
         const errMessage = err.code.split('/')[1];
@@ -75,7 +75,7 @@ const login = () => {
       <div ref={(e) => (display = e)} className={styles.display}>
         <nav className={styles.nav}>
           <img
-            onClick={() => history.push('/')}
+            onClick={() => history.push('/home')}
             src={process.env.PUBLIC_URL + '/icons/tt logo.png'}
             alt="logo"
           />
@@ -91,7 +91,7 @@ const login = () => {
               <h3>The world is you're Playground</h3>
             </header>
             <div className={styles.image}>
-              <img src={process.env.PUBLIC_URL + '/images/plane.svg'} alt="" />
+              <img src={process.env.PUBLIC_URL + '/images/plane.svg'} />
             </div>
           </div>
           <div className={styles.inputdiv}>

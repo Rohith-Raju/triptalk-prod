@@ -22,6 +22,12 @@
   padding-bottom: 2rem;
 }
 
+.location {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 @media (min-width: 30em) {
   .grid {
     grid-template-columns: 1fr 1fr;

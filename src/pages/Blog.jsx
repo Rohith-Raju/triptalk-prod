@@ -36,6 +36,8 @@ const Blog = ({
     };
   }, []);
 
+  if (error) history.push('/404');
+
   return !loading ? (
     <div>
       <Usernav />
