@@ -182,7 +182,7 @@ const Update = ({ data, PreError, id }) => {
 
         try {
           await updateDoc(doc(db, 'blog', id), formdata);
-          history.push('/explore');
+          history.push('/');
         } catch (e) {
           errorMessage("Problem in saving you're data");
           console.log(e);

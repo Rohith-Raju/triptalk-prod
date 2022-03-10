@@ -4,13 +4,39 @@ import { useHistory } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { useAuth } from '../contexts/Authcontext';
 
+//mui dialog imports
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+//deleting a user
+import {
+  writeBatch,
+  getFirestore,
+  where,
+  query,
+  collection,
+  getDocs,
+} from 'firebase/firestore';
+
+import { getStorage, ref, deleteObject } from 'firebase/storage';
+import { reauthenticateWithPopup } from 'firebase/auth';
+
 const Usernav = () => {
   const history = useHistory();
   const [clicked, setclicked] = useState(false);
+  const [error, setError] = useState(null);
   let popref = useRef('');
 
+  //states for dialogs
+  const [logout, setLogout] = useState(false);
+  const [deleteUser, setDeleteUser] = useState(false);
+
   //userhooks
-  const { Signout, currentuser } = useAuth();
+  const { Signout, currentuser, DeleteUser, reAuthenticate } = useAuth();
 
   let user = currentuser.displayName;
 
@@ -21,7 +47,6 @@ const Usernav = () => {
 
   const handleSignOut = () => {
     Signout();
-    history.push('/');
   };
 
   const handlePopover = () => {
@@ -43,8 +68,93 @@ const Usernav = () => {
     }
   };
 
+  const handleDeleteUser = async () => {
+    reAuthenticate()
+      .then(async () => {
+        const storage = getStorage();
+        const db = getFirestore();
+        const dbref = collection(db, 'blog');
+        const batch = writeBatch(db);
+        const delteQuery = query(dbref, where('Uid', '==', currentuser.uid));
+        const docs = await getDocs(delteQuery);
+        docs.forEach((doc) => {
+          const storageRef = ref(storage, doc.data().Imagepath);
+          deleteObject(storageRef);
+          batch.delete(doc.ref);
+        });
+        DeleteUser();
+        setDeleteUser(false);
+        return batch.commit();
+      })
+      .catch((err) => setError(err));
+  };
+
   return (
     <React.Fragment>
+      {/* dialog code for logout */}
+      <Dialog
+        open={logout}
+        onClose={() => setLogout(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">Logout from Trip-Talk</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to logout?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setLogout(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            color="error"
+            variant="outlined"
+            onClick={handleSignOut}
+            autoFocus
+          >
+            Logout
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={deleteUser}
+        onClose={() => setDeleteUser(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Are you sure you want to delete you're account
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Beware, if you delete you're account all data will be lost. Are you
+            sure you want to delete you're account
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setDeleteUser(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            color="error"
+            variant="outlined"
+            onClick={handleDeleteUser}
+            autoFocus
+          >
+            Delete Account
+          </Button>
+        </DialogActions>
+      </Dialog>
       <nav className={styles.navbar}>
         <img
           onClick={() => history.push('/home')}
@@ -72,7 +182,7 @@ const Usernav = () => {
             <img className={styles.inneravatar} src={avatar} />
             <h4>{user}</h4>
             <div className={styles.profileBtn}>
-              <a onClick={handleSignOut}>Logout</a>
+              <a onClick={() => setLogout(true)}>Logout</a>
             </div>
             <div className={styles.userLinks}>
               <div className={styles.Settings}>
@@ -86,7 +196,12 @@ const Usernav = () => {
                 </a>
               </div>
               <div className={styles.signout}>
-                <a className={styles.animlink}>Delete Account</a>
+                <a
+                  onClick={() => setDeleteUser(true)}
+                  className={styles.animlink}
+                >
+                  Delete Account
+                </a>
               </div>
             </div>
           </div>

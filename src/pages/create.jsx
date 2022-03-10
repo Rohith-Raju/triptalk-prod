@@ -168,7 +168,7 @@ const Create = () => {
 
         try {
           await addDoc(collection(db, 'blog'), data);
-          history.push('/explore');
+          history.push('/');
         } catch (e) {
           errorMessage("Problem in saving you're data");
           console.log(e);

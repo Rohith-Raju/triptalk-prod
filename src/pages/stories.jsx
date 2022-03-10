@@ -17,7 +17,6 @@ import {
   doc,
 } from 'firebase/firestore';
 
-//
 import { deleteObject, ref, getStorage } from 'firebase/storage';
 
 import { useHistory } from 'react-router-dom';
@@ -34,7 +33,7 @@ import { useAuth } from '../contexts/Authcontext';
 import styles from '../styles/pages/explore.module.css';
 import stories from '../styles/pages/stories.module.css';
 
-//mui imports
+//mui dialog imports
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -81,7 +80,6 @@ const Stories = () => {
 
   useEffect(async () => {
     const fetchdata = [];
-    console.log(typeof currentuser.uid);
     const timestampQuery = query(
       blogRef,
       where('Uid', '==', currentuser.uid),
@@ -132,7 +130,7 @@ const Stories = () => {
 
   return (
     <React.Fragment>
-      {/* dialog code for delete and update */}
+      {/* dialog code for delete  */}
       <Dialog
         open={dialog}
         onClose={() => setDialog(false)}

@@ -8,6 +8,8 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signOut,
+  deleteUser,
+  reauthenticateWithPopup,
 } from 'firebase/auth';
 
 const auth = getAuth(app);
@@ -39,6 +41,14 @@ export const Authprovider = ({ children }) => {
     return signOut(auth);
   };
 
+  const reAuthenticate = () => {
+    return reauthenticateWithPopup(currentuser, new GoogleAuthProvider());
+  };
+
+  const DeleteUser = () => {
+    deleteUser(currentuser);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setcurrentuser(user);
@@ -53,6 +63,8 @@ export const Authprovider = ({ children }) => {
     emailPasswordSignIn,
     emailPasswordSignUp,
     Signout,
+    DeleteUser,
+    reAuthenticate,
   };
   return (
     <Authcontext.Provider value={value}>

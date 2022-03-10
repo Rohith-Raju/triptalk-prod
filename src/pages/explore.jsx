@@ -119,7 +119,7 @@ const Explore = () => {
                       <article>
                         <h1>{key.Title}</h1>
                         <p>{key.Description}</p>
-                        <span style={styles.location}>
+                        <span className={styles.location}>
                           <GoLocation />
                           {key.Location}
                         </span>

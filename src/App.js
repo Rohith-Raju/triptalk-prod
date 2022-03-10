@@ -1,7 +1,6 @@
 // pages import
 import Homepage from './pages/homepage';
 import Login from './pages/login';
-import Signup from './pages/signup';
 import Explore from './pages/explore';
 import Create from './pages/create';
 import Stories from './pages/stories';
@@ -22,7 +21,6 @@ function App() {
           <Switch>
             <Route path="/home" exact component={Homepage} />
             <Route path="/signin" exact component={Login} />
-            <Route path="/signup" exact component={Signup} />
             <PrivateRoute path="/stories" exact component={Stories} />
             <PrivateRoute path="/" exact component={Explore} />
             <PrivateRoute path="/create" exact component={Create} />
