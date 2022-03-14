@@ -117,7 +117,6 @@ const Stories = () => {
       setHasmore(false);
     } else {
       getNext.forEach((doc) => {
-        console.log(doc);
         nextdata.push({
           id: doc.id,
           ...doc.data(),

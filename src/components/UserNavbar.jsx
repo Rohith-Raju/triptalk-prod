@@ -23,12 +23,10 @@ import {
 } from 'firebase/firestore';
 
 import { getStorage, ref, deleteObject } from 'firebase/storage';
-import { reauthenticateWithPopup } from 'firebase/auth';
 
 const Usernav = () => {
   const history = useHistory();
   const [clicked, setclicked] = useState(false);
-  const [error, setError] = useState(null);
   let popref = useRef('');
 
   //states for dialogs
@@ -159,7 +157,7 @@ const Usernav = () => {
         <img
           onClick={() => history.push('/home')}
           className={styles.logo}
-          src={process.env.PUBLIC_URL + '/icons/tt logo.png'}
+          src={process.env.PUBLIC_URL + '/icons/ttlogo.png'}
           alt="triptalk logo"
         />
         <a className={styles.links} href="/">

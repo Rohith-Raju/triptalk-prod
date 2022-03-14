@@ -148,11 +148,9 @@ const Update = ({ data, PreError, id }) => {
     }
   };
 
-  console.log(image.name);
-
   const onSubmit = async (formdata) => {
     setError(null);
-    console.log(docImage, image);
+
     if (docImage !== image.name) {
       const delref = ref(storage, data.Imagepath);
       deleteObject(delref);
@@ -166,7 +164,7 @@ const Update = ({ data, PreError, id }) => {
 
         try {
           const upload = await uploadBytes(storageRef, image);
-          console.log(upload);
+
           formdata['Imagepath'] = upload.metadata.fullPath;
         } catch (e) {
           errorMessage('Problem in uploading the image');
@@ -185,7 +183,6 @@ const Update = ({ data, PreError, id }) => {
           history.push('/');
         } catch (e) {
           errorMessage("Problem in saving you're data");
-          console.log(e);
         }
         setLoading(false);
       })

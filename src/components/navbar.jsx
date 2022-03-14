@@ -9,7 +9,7 @@ const navbar = () => {
       <nav className={styles.navbar}>
         <img
           className={styles.logo}
-          src={process.env.PUBLIC_URL + '/icons/tt logo.png'}
+          src={process.env.PUBLIC_URL + '/icons/ttlogo.png'}
           alt="triptalk logo"
         />
         <a className={styles.links} href="/">

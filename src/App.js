@@ -3,7 +3,7 @@ import Homepage from './pages/homepage';
 import Login from './pages/login';
 import Explore from './pages/explore';
 import Create from './pages/create';
-import Stories from './pages/stories';
+import Stories from './pages/Stories';
 import Blog from './pages/Blog';
 import Preload from './FormPrelod/Preload';
 

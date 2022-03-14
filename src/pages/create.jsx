@@ -152,7 +152,7 @@ const Create = () => {
 
         try {
           const upload = await uploadBytes(storageRef, image);
-          console.log(upload);
+          upload;
           data['Imagepath'] = upload.metadata.fullPath;
         } catch (e) {
           errorMessage('Problem in uploading the image');
@@ -171,7 +171,6 @@ const Create = () => {
           history.push('/');
         } catch (e) {
           errorMessage("Problem in saving you're data");
-          console.log(e);
         }
         setLoading(false);
       })
