@@ -89,7 +89,7 @@ const Explore = () => {
                 <a className={styles.card}>
                   <div
                     style={{
-                      backgroundImage: `url("${data[0].Image}")`,
+                      backgroundImage: `url(${data[0].Image})`,
                     }}
                     className={styles.thumb}
                   ></div>
@@ -113,7 +113,7 @@ const Explore = () => {
                       <div
                         className={styles.thumb}
                         style={{
-                          backgroundImage: `url('${key.Image}')`,
+                          backgroundImage: `url(${key.Image})`,
                         }}
                       ></div>
                       <article>
