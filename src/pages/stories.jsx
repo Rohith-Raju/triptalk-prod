@@ -185,7 +185,7 @@ const Stories = () => {
                   <div
                     onClick={() => history.push(`/explore/${data[0].id}`)}
                     style={{
-                      backgroundImage: `url(${data[0].Image})`,
+                      backgroundImage: `url('${data[0].Image}')`,
                     }}
                     className={styles.thumb}
                   ></div>
@@ -243,7 +243,7 @@ const Stories = () => {
                         onClick={() => history.push(`/explore/${key.id}`)}
                         className={styles.thumb}
                         style={{
-                          backgroundImage: `url(${key.Image})`,
+                          backgroundImage: `url('${key.Image}')`,
                         }}
                       ></div>
                       <article>

@@ -39,8 +39,8 @@ const TitleFormRules = {
   },
 
   maxLength: {
-    value: 50,
-    message: 'Title  should not exceed 40 characters',
+    value: 60,
+    message: 'Title  should not exceed 60 characters',
   },
   minLength: {
     value: 20,
