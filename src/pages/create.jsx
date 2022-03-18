@@ -56,11 +56,11 @@ const DescFormRules = {
 
   maxLength: {
     value: 250,
-    message: 'Description  should not exceed 150 characters',
+    message: 'Description  should not exceed 250 characters',
   },
   minLength: {
     value: 35,
-    message: 'Description  should exceed 25 charecters',
+    message: 'Description  should exceed 35 charecters',
   },
 };
 
