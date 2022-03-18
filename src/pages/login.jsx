@@ -75,7 +75,7 @@ const login = () => {
         <nav className={styles.nav}>
           <img
             onClick={() => history.push('/home')}
-            src={process.env.PUBLIC_URL + '/icons/ttlogo.png'}
+            src={process.env.PUBLIC_URL + '/icons/tt logo.png'}
             alt="logo"
           />
         </nav>
