@@ -5,11 +5,15 @@ import { gsap, Power4 } from 'gsap';
 import Navbar from '../components/Navbar';
 import styles from '../styles/pages/homepage.module.css';
 
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+
 const Home = () => {
   let stagger = useRef();
   let cta = useRef();
   let carRef = useRef();
   let footerRef = useRef();
+
+  const history = useHistory();
 
   useEffect(() => {
     gsap.set(stagger, { y: 100 });
@@ -57,7 +61,11 @@ const Home = () => {
                 <h1 ref={(e) => (stagger = e)} className={styles.heading}>
                   Make you're trips more Memorable
                 </h1>
-                <div ref={(e) => (cta = e)} className={styles.cta}>
+                <div
+                  onClick={() => history.push('/signin')}
+                  ref={(e) => (cta = e)}
+                  className={styles.cta}
+                >
                   <img src={process.env.PUBLIC_URL + '/icons/Ellipse.png'} />
                   <span>Get Started</span>
                 </div>
