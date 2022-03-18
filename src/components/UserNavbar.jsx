@@ -189,7 +189,10 @@ const Usernav = () => {
                 </a>
               </div>
               <div className={styles.terms}>
-                <a className={styles.animlink} href="/terms">
+                <a
+                  className={styles.animlink}
+                  href="https://www.linkedin.com/in/rohith-raju-11250a19b"
+                >
                   About Creator
                 </a>
               </div>

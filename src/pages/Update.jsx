@@ -40,8 +40,8 @@ const TitleFormRules = {
   },
 
   maxLength: {
-    value: 60,
-    message: 'Title  should not exceed 60 characters',
+    value: 50,
+    message: 'Title  should not exceed 40 characters',
   },
   minLength: {
     value: 20,
@@ -57,11 +57,11 @@ const DescFormRules = {
 
   maxLength: {
     value: 250,
-    message: 'Description  should not exceed 250 characters',
+    message: 'Description  should not exceed 150 characters',
   },
   minLength: {
     value: 35,
-    message: 'Description  should exceed 35 charecters',
+    message: 'Description  should exceed 25 charecters',
   },
 };
 
