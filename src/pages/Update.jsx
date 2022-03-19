@@ -40,8 +40,8 @@ const TitleFormRules = {
   },
 
   maxLength: {
-    value: 50,
-    message: 'Title  should not exceed 40 characters',
+    value: 60,
+    message: 'Title  should not exceed 60 characters',
   },
   minLength: {
     value: 20,
@@ -57,11 +57,27 @@ const DescFormRules = {
 
   maxLength: {
     value: 250,
-    message: 'Description  should not exceed 150 characters',
+    message: 'Description  should not exceed 250 characters',
   },
   minLength: {
     value: 35,
-    message: 'Description  should exceed 25 charecters',
+    message: 'Description  should exceed 35 charecters',
+  },
+};
+
+const LocationFormRules = {
+  required: {
+    value: true,
+    message: 'location input is requiered ',
+  },
+
+  maxLength: {
+    value: 15,
+    message: 'location  should not exceed 15 characters',
+  },
+  minLength: {
+    value: 1,
+    message: 'Description should exceed 1 charecters',
   },
 };
 
@@ -161,19 +177,21 @@ const Update = ({ data, PreError, id }) => {
         setLoading(true);
         formdata['Body'] = Body;
         const storageRef = ref(storage, `${currentuser.uid}/${image.name}`);
+        if (docImage !== image.name) {
+          try {
+            const upload = await uploadBytes(storageRef, image);
 
-        try {
-          const upload = await uploadBytes(storageRef, image);
+            formdata['Imagepath'] = upload.metadata.fullPath;
+          } catch (e) {
+            errorMessage('Problem in uploading the image');
+          }
 
-          formdata['Imagepath'] = upload.metadata.fullPath;
-        } catch (e) {
-          errorMessage('Problem in uploading the image');
+          await getDownloadURL(storageRef)
+            .then((res) => (formdata['Image'] = res))
+            .catch((e) =>
+              errorMessage('Problem in fethcing the image' + e.message)
+            );
         }
-        await getDownloadURL(storageRef)
-          .then((res) => (formdata['Image'] = res))
-          .catch((e) =>
-            errorMessage('Problem in fethcing the image' + e.message)
-          );
         formdata['Timestamp'] = Timestamp.fromDate(new Date());
         formdata['UserName'] = currentuser.displayName;
         formdata['Uid'] = currentuser.uid;
@@ -235,12 +253,7 @@ const Update = ({ data, PreError, id }) => {
                 type="date"
               />
               <Input
-                rules={{
-                  required: {
-                    value: true,
-                    message: 'Location cant be empty',
-                  },
-                }}
+                rules={LocationFormRules}
                 control={control}
                 label="Location"
                 name="Location"

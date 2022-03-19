@@ -39,8 +39,8 @@ const TitleFormRules = {
   },
 
   maxLength: {
-    value: 50,
-    message: 'Title  should not exceed 40 characters',
+    value: 60,
+    message: 'Title  should not exceed 60 characters',
   },
   minLength: {
     value: 20,
@@ -56,16 +56,32 @@ const DescFormRules = {
 
   maxLength: {
     value: 250,
-    message: 'Description  should not exceed 150 characters',
+    message: 'Description  should not exceed 250 characters',
   },
   minLength: {
     value: 35,
-    message: 'Description  should exceed 25 charecters',
+    message: 'Description  should exceed 35 charecters',
+  },
+};
+
+const LocationFormRules = {
+  required: {
+    value: true,
+    message: 'location input is requiered ',
+  },
+
+  maxLength: {
+    value: 15,
+    message: 'location  should not exceed 15 characters',
+  },
+  minLength: {
+    value: 1,
+    message: 'Description should exceed 1 charecters',
   },
 };
 
 const bodySchema = yup.object().shape({
-  Body: yup.string().required().min(500).max(6000),
+  Body: yup.string().required().min(500).max(8000),
 });
 
 const modules = {
@@ -222,12 +238,7 @@ const Create = () => {
               type="date"
             />
             <Input
-              rules={{
-                required: {
-                  value: true,
-                  message: 'Location cant be empty',
-                },
-              }}
+              rules={LocationFormRules}
               control={control}
               label="Location"
               name="Location"
