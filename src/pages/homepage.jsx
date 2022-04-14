@@ -58,10 +58,10 @@ const Home = () => {
             <div className={styles.left}>
               <div className={styles.header}>
                 <h1 ref={(e) => (stagger = e)} className={styles.heading}>
-                  Make you're trips more Memorable
+                  Make your trips more Memorable
                 </h1>
                 <div
-                  onClick={history.push('/signin')}
+                  onClick={(e) => history.push('/')}
                   ref={(e) => (cta = e)}
                   className={styles.cta}
                 >

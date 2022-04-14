@@ -11,6 +11,7 @@ const navbar = () => {
           className={styles.logo}
           src={process.env.PUBLIC_URL + '/icons/ttlogo.png'}
           alt="triptalk logo"
+          onClick={() => history.push('/home')}
         />
         <a className={styles.links} href="/">
           Explore

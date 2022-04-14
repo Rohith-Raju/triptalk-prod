@@ -21,8 +21,8 @@ function App() {
           <Switch>
             <Route path="/home" exact component={Homepage} />
             <Route path="/signin" exact component={Login} />
-            <PrivateRoute path="/stories" exact component={Stories} />
             <Route path="/" exact component={Explore} />
+            <PrivateRoute path="/stories" exact component={Stories} />
             <PrivateRoute path="/create" exact component={Create} />
             <PrivateRoute path="/explore/:id" exact component={Blog} />
             <PrivateRoute path="/update/:id" exact component={Preload} />
