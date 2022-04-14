@@ -200,7 +200,7 @@ const Update = ({ data, PreError, id }) => {
           await updateDoc(doc(db, 'blog', id), formdata);
           history.push('/');
         } catch (e) {
-          errorMessage("Problem in saving you're data");
+          errorMessage('Problem in saving your data');
         }
         setLoading(false);
       })
@@ -214,7 +214,7 @@ const Update = ({ data, PreError, id }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.container}>
             <header className={styles.createHeader}>
-              <h1>Update you're story</h1>
+              <h1>Update your story</h1>
             </header>
             {error ? (
               <div ref={errorRef}>
@@ -267,7 +267,7 @@ const Update = ({ data, PreError, id }) => {
                 value={Body}
                 onChange={setBody}
                 className={styles.quill}
-                placeholder="You're body goes here"
+                placeholder="Your body goes here"
                 formats={formats}
                 modules={modules}
               />

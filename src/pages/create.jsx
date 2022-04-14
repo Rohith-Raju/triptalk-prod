@@ -186,7 +186,7 @@ const Create = () => {
           await addDoc(collection(db, 'blog'), data);
           history.push('/');
         } catch (e) {
-          errorMessage("Problem in saving you're data");
+          errorMessage('Problem in saving your data');
         }
         setLoading(false);
       })
@@ -199,7 +199,7 @@ const Create = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.container}>
           <header className={styles.createHeader}>
-            <h1>Write you're story</h1>
+            <h1>Write your story</h1>
           </header>
           {error ? (
             <div ref={errorRef}>
@@ -252,7 +252,7 @@ const Create = () => {
               value={Body}
               onChange={setBody}
               className={styles.quill}
-              placeholder="You're body goes here"
+              placeholder="Your body goes here"
               formats={formats}
               modules={modules}
             />

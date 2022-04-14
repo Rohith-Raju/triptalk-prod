@@ -82,7 +82,7 @@ const login = () => {
         <section className={styles.signin}>
           <div className={styles.sidebar}>
             <header>
-              <h3>The world is you're Playground</h3>
+              <h3>The world is your Playground</h3>
             </header>
             <div className={styles.image}>
               <img src={process.env.PUBLIC_URL + '/images/plane.svg'} />

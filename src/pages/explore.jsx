@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Usernav from '../components/UserNavbar';
 import styles from '../styles/pages/explore.module.css';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Navbar from '../components/navbar';
 import {
   getDocs,
   query,
@@ -72,7 +73,7 @@ const Explore = () => {
 
   return (
     <React.Fragment>
-      <Usernav />
+      <Navbar />
       <div className={styles.container}>
         <h1>Top Stories</h1>
         {!loading ? (

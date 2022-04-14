@@ -142,7 +142,7 @@ const Stories = () => {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Beware,the post once deleted cannot be recoverd. Please make sure
-            you're deleting the right post
+            your deleting the right post
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -166,7 +166,7 @@ const Stories = () => {
       </Dialog>
       <Usernav />
       <div className={styles.container}>
-        <h1> {empty ? 'No records found' : "You're Stories"} </h1>
+        <h1> {empty ? 'No records found' : 'Your Stories'} </h1>
         {empty ? (
           <div className={styles.cross}>
             <div className={stories.cross}>

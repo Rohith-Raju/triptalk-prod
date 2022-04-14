@@ -127,12 +127,12 @@ const Usernav = () => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          Are you sure you want to delete you're account
+          Are you sure you want to delete your account
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Beware, if you delete you're account all data will be lost. Are you
-            sure you want to delete you're account
+            Beware, if you delete your account all data will be lost. Are you
+            sure you want to delete your account
           </DialogContentText>
         </DialogContent>
         <DialogActions>
