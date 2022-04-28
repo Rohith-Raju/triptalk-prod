@@ -15,12 +15,17 @@ import {
 import { useHistory } from 'react-router-dom';
 import { GoLocation } from 'react-icons/go';
 
+import { useAuth } from '../contexts/Authcontext';
+
 const Explore = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hasmore, setHasmore] = useState(true);
   const [documentSnapshot, setDocumentSnapshot] = useState();
+
   const history = useHistory();
+
+  const { currentuser } = useAuth();
 
   const db = getFirestore();
   const blogref = collection(db, 'blog');
@@ -73,7 +78,7 @@ const Explore = () => {
 
   return (
     <React.Fragment>
-      <Navbar />
+      {currentuser ? <Usernav /> : <Navbar />}
       <div className={styles.container}>
         <h1>Top Stories</h1>
         {!loading ? (
