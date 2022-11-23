@@ -35,7 +35,7 @@ import { Barloader } from '../components/loader';
 const TitleFormRules = {
   required: {
     value: true,
-    message: 'This input is requiered ',
+    message: 'This input is required ',
   },
 
   maxLength: {
@@ -51,7 +51,7 @@ const TitleFormRules = {
 const DescFormRules = {
   required: {
     value: true,
-    message: 'Description input is requiered ',
+    message: 'Description input is required ',
   },
 
   maxLength: {
@@ -67,7 +67,7 @@ const DescFormRules = {
 const LocationFormRules = {
   required: {
     value: true,
-    message: 'location input is requiered ',
+    message: 'location input is required ',
   },
 
   maxLength: {
