@@ -1,7 +1,7 @@
 # TripTalk
 
 ## What it does ?
-Since it is tedious for travellers to set up their own blog site, Triptalk lets travellers wtite their blogs and make it publically available for people to see their stories and blogs.
+Since it is tedious for travellers to set up their own blog site, Triptalk lets travellers write their blogs and make them publically available for people to see their stories and blogs.
 
 ## Where is it hosted ?
 TripTalk is hosted on firebase, it uses firestore ( nosql database )  and cloud storage ( store images ) to store it's content. You can access it by https://triptalk-production.web.app/ link
